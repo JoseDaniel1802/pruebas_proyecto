@@ -1,7 +1,7 @@
 
 from typing import TypeVar, Generic
 
-from Estructuras.nodo import Node
+from nodo import Node
 
 T = TypeVar('T')
 

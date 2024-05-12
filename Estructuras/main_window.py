@@ -11,6 +11,7 @@ from arbol_binario_window import BinaryTreeWindow
 from arbol_busqueda_window import BinarySearchTreeWindow
 
 
+
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()

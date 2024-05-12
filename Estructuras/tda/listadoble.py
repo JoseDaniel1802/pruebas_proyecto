@@ -1,6 +1,6 @@
 from typing import TypeVar, Generic
 
-from Estructuras.node_double import Node
+from node_double import Node
 
 T = TypeVar("T")
 

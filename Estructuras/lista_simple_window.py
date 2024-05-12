@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLa
     QScrollArea, QFileDialog
 from PyQt6.QtGui import QPixmap, QFont, QIcon
 
-from Estructuras.data_identificator import data_identificator_type
+from data_identificator import data_identificator_type
 from edit_lista_simple_data import InsertFinalSinglyWindow, InsertInicioSinglyWindow, SearchSinglyWindow, data
 
 

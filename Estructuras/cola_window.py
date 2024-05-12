@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLa
 from PyQt6.QtGui import QPixmap, QFont, QIcon
 import sys
 
-from Estructuras.data_identificator import data_identificator_type
+from data_identificator import data_identificator_type
 from edit_cola_data import data
 from edit_cola_data import SearchQueueWindow, InsertQueueWindow
 

@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton
 from PyQt6.QtGui import QIcon, QFont
 from data_identificator import data_identificator_type
 
-from Estructuras.nodo import Node
+from nodo import Node
 from tda.list import List
 
 data = List()
