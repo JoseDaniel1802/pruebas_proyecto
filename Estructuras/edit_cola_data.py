@@ -56,6 +56,12 @@ class InsertQueueWindow(QDialog):
             QMessageBox.warning(self, "Error", 'Por favor ingrese datos validos',
                                 QMessageBox.StandardButton.Close,
                                 QMessageBox.StandardButton.Close)
+        elif type == str:
+            data.append(elemt)
+            QMessageBox.information(self, "Elemento insertado", f"se ha insertado con exito: {elemt}",
+                                    QMessageBox.StandardButton.Ok,
+                                    QMessageBox.StandardButton.Ok)
+            self.close()
 
         elif type!= y:
             QMessageBox.warning(self, "Error", 'Por favor ingrese el tipo de dato elegido',

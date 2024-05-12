@@ -6,7 +6,7 @@ from cola_window import QueueWindow
 from lista_simple_window import ListWindow
 from lista_circular_window import CircularListWindow
 from lista_doble_window import ListDoubleWindow
-from lista_circular_doble_window import CircularDoublyLinkedListWindow
+from lista_circular_doble_window import DoublyCircularListWindow
 from arbol_binario_window import BinaryTreeWindow
 from arbol_busqueda_window import BinarySearchTreeWindow
 
@@ -134,7 +134,7 @@ class MainWindow(QWidget):
 
     def lista_circular_doble_button_clicked(self):
         self.hide()  # Ocultar la ventana principal
-        self.lista_circular_doble = CircularDoublyLinkedListWindow()
+        self.lista_circular_doble = DoublyCircularListWindow()
         self.lista_circular_doble.show()
         self.lista_circular_doble.window_closed.connect(self.reopen_main_menu)
 
@@ -149,6 +149,7 @@ class MainWindow(QWidget):
         self.arbol_busqueda = BinarySearchTreeWindow()
         self.arbol_busqueda.show()
         self.arbol_busqueda.window_closed.connect(self.reopen_main_menu)
+
 
 
 if __name__ == "__main__":

@@ -2,9 +2,9 @@ from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox
 from PyQt6.QtGui import QIcon, QFont
 from data_identificator import data_identificator_type
-from circulares.circular_list import CircularList, Node
+from circulares.doubly_linked_list import CircularDoublyLinkedList
 
-data = CircularList()
+data = CircularDoublyLinkedList()
 
 
 class InsertInicioSinglyWindow(QDialog):
@@ -138,7 +138,7 @@ class InsertFinalSinglyWindow(QDialog):
                                 QMessageBox.StandardButton.Close)
 
         elif type == str:
-            data.append(elemt)
+            data.prepend(elemt)
             QMessageBox.information(self, "Elemento insertado", f"se ha insertado con exito: {elemt}",
                                     QMessageBox.StandardButton.Ok,
                                     QMessageBox.StandardButton.Ok)
@@ -233,4 +233,3 @@ class SearchSinglyWindow(QDialog):
         super().closeEvent(event)
 
         self.close()
-

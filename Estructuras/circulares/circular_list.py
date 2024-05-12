@@ -10,37 +10,33 @@ class CircularList(Generic[T]):
         self.__head: Node[T] | None = None
         self.__tail: Node[T] | None = None
         self.__size: int = 0
+        self.count = 0
+        self.tipo_data = None
         self.__current: Node[T] | None = None
 
     def append(self, data: T):
         new_node = Node(data)
-
         if self.is_empty():
+            new_node.next = new_node
             self.__head = new_node
             self.__tail = new_node
         else:
             self.__tail.next = new_node
             self.__tail = new_node
-
-        new_node.next = self.__head
+        self.__tail.next = self.__head
         self.__size += 1
 
     def prepend(self, data: T):
         new_node = Node(data)
-
         if self.is_empty():
+            new_node.next = new_node
             self.__head = new_node
             self.__tail = new_node
         else:
             new_node.next = self.__head
             self.__head = new_node
-
-        self.__tail.next = self.__head  # Enlazamos el último nodo con el primero
+            self.__tail.next = self.__head
         self.__size += 1
-
-    def __iter__(self):
-        self.__current = self.__head
-        return self
 
     def __next__(self):
         """if self.__current is None:
@@ -128,6 +124,26 @@ class CircularList(Generic[T]):
 
         return removed_node.data
 
+    def get_index(self, value: str) -> int:
+        if self.is_empty():
+            return -1
+
+        current = self.__head
+        index = 0
+
+        while True:
+            # Convertimos el valor actual a cadena para hacer la comparación
+            if str(current.data) == value:
+                return index
+            current = current.next
+            index += 1
+
+            # Si hemos vuelto al inicio, significa que hemos recorrido toda la lista
+            if current is self.__head:
+                break
+
+        return -1
+
     def move_right(self, steps: int) -> None:
         if self.is_empty() or steps <= 0:
             return
@@ -146,12 +162,18 @@ class CircularList(Generic[T]):
                 current = current.next
             self.__head = current
             self.__tail = current
+
     def __len__(self):
         return self.__size
+
+    def __iter__(self):
+        self.__current = self.__head
+        return self
 
     @property
     def head(self):
         return self.__head
 
+    @property
     def tail(self):
         return self.__tail

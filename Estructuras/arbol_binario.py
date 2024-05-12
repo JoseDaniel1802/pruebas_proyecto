@@ -7,6 +7,7 @@ T = TypeVar("T")
 class BinaryTree(Generic[T]):
     def __init__(self):
         self.root: Node[T] | None = None
+        self.tipo_data = None
 
     # FUNCION  PARA CALCULAR LA ALTURA DEL ARBOl
     def altura(self, subtree: Node[T]):

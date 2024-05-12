@@ -1,7 +1,7 @@
 
 from __future__ import annotations
 from typing import TypeVar, Generic
-from Estructuras.nodo import Node
+from nodo import Node
 
 T = TypeVar('T')
 

@@ -1,8 +1,10 @@
 import sys
 from PyQt6.QtCore import pyqtSignal, Qt
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QMessageBox, \
-    QScrollArea
+    QScrollArea, QFileDialog
 from PyQt6.QtGui import QPixmap, QFont, QIcon
+
+from data_identificator import data_identificator_type
 from edit_pila_data import InsertWindow, FindWindow, data
 
 
@@ -225,6 +227,7 @@ class StackWindow(QWidget):
         self.button3.setStyleSheet(button_style)
         self.extra_buttons_layout.addWidget(self.button3)
 
+
         # Agregar layout de botones adicionales al layout principal
         layout.addLayout(self.extra_buttons_layout)
 
@@ -246,6 +249,25 @@ class StackWindow(QWidget):
 
     def button3_clicked(self, layout: QVBoxLayout):
         data.tipo_data = str
+
+        self.button1.deleteLater()
+        self.button2.deleteLater()
+        self.button3.deleteLater()
+        self.button_main(layout)
+
+    def button4_clicked(self, layout: QVBoxLayout):
+        self.cargar_desde_archivo()
+        size = len(data)
+        for i in (0, size):
+            if i == 0:
+                td = data.shift()
+                data.tipo_data = data_identificator_type(td)
+                data.prepend(td)
+            td = data.shift()
+            data.prepend(td)
+
+
+        self.refresh_window()
 
         self.button1.deleteLater()
         self.button2.deleteLater()
@@ -281,7 +303,54 @@ class StackWindow(QWidget):
         buscar_valor_button.clicked.connect(self.find_button_clicked)
         buttons_layout.addWidget(buscar_valor_button)
 
+        save_layout = QHBoxLayout()
+
+        # Guardar archivo
+        save_button = QPushButton("Guardar (txt)")
+        save_button.setStyleSheet(button_style)
+        save_button.setFont(QFont("Arial", 11))
+        save_button.clicked.connect(self.save_stack)
+        save_layout.addWidget(save_button)
+
+        # Guardar archivo
+        save_upload = QPushButton("Cargar (txt)")
+        save_upload.setStyleSheet(button_style)
+        save_upload.setFont(QFont("Arial", 11))
+        save_upload.clicked.connect(self.cargar_desde_archivo)
+        save_layout.addWidget(save_upload)
+
+        buttons_layout.addLayout(save_layout)
+
         main_layout.addLayout(buttons_layout)
+
+    def save_stack(self):
+        file_path, _ = QFileDialog.getSaveFileName(self, "Guardar archivo", "", "Archivos de texto (*.txt)")
+        if file_path:
+            try:
+                with open(file_path, 'w') as file:
+                    for item in data:
+                        file.write(str(item) + '\n')
+                QMessageBox.information(self, "Archvo Guardado", f"Guardado correctamente en: {file_path}",
+                                        QMessageBox.StandardButton.Ok,
+                                        QMessageBox.StandardButton.Ok)
+            except Exception as e:
+                print("Error al guardar la pila:", str(e))
+
+    def cargar_desde_archivo(self):
+        file_path, _ = QFileDialog.getOpenFileName(self, "Seleccionar archivo", "", "Archivos de texto (*.txt)")
+        if file_path:
+            try:
+                with open(file_path, 'r') as file:
+                    for line in file:
+                        dato = line.strip()  # Elimina espacios en blanco y saltos de línea
+                        data.prepend(dato)  # Agrega los datos a la pila
+                QMessageBox.information(self, "Archvo Cargado", f"Cargado correctamente desde: {file_path}",
+                                        QMessageBox.StandardButton.Ok,
+                                        QMessageBox.StandardButton.Ok)
+                self.refresh_window()
+            except Exception as e:
+                QMessageBox.warning(self,"Error al cargar datos desde el archivo:", str(e))
+
 
 
 if __name__ == "__main__":
